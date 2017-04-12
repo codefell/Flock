@@ -10,7 +10,7 @@ public class TeamCreator : ScriptableWizard {
     public string tag = "unit";
     public GameObject prefab;
 
-    [MenuItem("Tools/Create Team")]
+    //[MenuItem("Tools/Create Team")]
     static void CreateWizard()
     {
         ScriptableWizard.DisplayWizard<TeamCreator>("Create Team", "create");
