@@ -38,16 +38,26 @@ public class MapInspector : Editor{
             mousePos.y = camera.pixelHeight - mousePos.y;
             Ray ray = camera.ScreenPointToRay(mousePos);
             RaycastHit rayHit = new RaycastHit();
-            if (Physics.Raycast(ray, out rayHit, float.MaxValue, LayerMask.NameToLayer("MapPiece")))
+            if (Physics.Raycast(ray, out rayHit, float.MaxValue, 1 << LayerMask.NameToLayer("MapPiece")))
             {
                 if (modes[currMode] == "RedUnit")
                 {
                     GameObject redUnit = (GameObject)PrefabUtility.InstantiatePrefab(mRedUnit);
+                    ChessPiece cp = redUnit.GetComponent<ChessPiece>();
+                    MapPiece mp = rayHit.collider.GetComponent<MapPiece>();
+                    cp.x = mp.x;
+                    cp.y = mp.y;
+                    mTarget.chessPieces[mp.y * mTarget.col + mp.x] = redUnit;
                     redUnit.transform.position = rayHit.collider.transform.position + new Vector3(0, 0.2f, 0);
                 }
                 else if (modes[currMode] == "BlueUnit")
                 {
                     GameObject blueUnit = (GameObject)PrefabUtility.InstantiatePrefab(mBlueUnit);
+                    ChessPiece cp = blueUnit.GetComponent<ChessPiece>();
+                    MapPiece mp = rayHit.collider.GetComponent<MapPiece>();
+                    cp.x = mp.x;
+                    cp.y = mp.y;
+                    mTarget.chessPieces[mp.y * mTarget.col + mp.x] = blueUnit;
                     blueUnit.transform.position = rayHit.collider.transform.position + new Vector3(0, 0.2f, 0);
                 }
             }

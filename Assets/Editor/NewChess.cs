@@ -34,6 +34,9 @@ public class NewChess : ScriptableWizard {
         light.shadowStrength = 0.5f;
         //GameObject.CreatePrimitive(PrimitiveType.Quad);
         map.pieces = new GameObject[row * col];
+        map.chessPieces = new GameObject[row * col];
+        map.row = row;
+        map.col = col;
         for (int i = 0; i < row; i++)
         {
             for (int j = 0; j < col; j++)
@@ -44,6 +47,8 @@ public class NewChess : ScriptableWizard {
                 mp.x = j;
                 mp.y = i;
                 piece.tag = "MapPiece";
+                Debug.Log(LayerMask.NameToLayer("MapPiece"));
+                piece.layer = LayerMask.NameToLayer("MapPiece");
                 piece.GetComponent<Renderer>().sharedMaterial.SetColor("_Color", new Color(0, 1, 0));
                 piece.transform.localScale = new Vector3(0.9f, 0.9f, 1);
                 piece.transform.Rotate(90, 0, 0);
